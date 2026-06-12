@@ -1,0 +1,8 @@
+add_requires("sol2")
+add_requires("foxglove_sdk")
+add_requires("spdlog")
+target("framework")
+    add_files("src/*.cpp")
+    add_includedirs("include", { public = true })
+    add_includedirs("/usr/include", { public = true })
+    add_packages("sol2","spdlog" ,"foxglove_sdk")

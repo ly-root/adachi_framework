@@ -1,0 +1,8 @@
+add_requires("opencv")
+target(node_name)
+    add_files("src/*.cpp")
+    add_includedirs("include")
+    add_deps("framework")
+    add_deps("interfaces")
+    add_deps("utilities")
+    add_packages("opencv")

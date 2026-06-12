@@ -1,0 +1,11 @@
+.DS_Store
+build
+install
+logs
+Camera
+compile_commands.json
+.cache
+.vscode
+.xmake
+.opencode
+log
