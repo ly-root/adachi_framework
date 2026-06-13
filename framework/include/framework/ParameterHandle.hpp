@@ -17,8 +17,9 @@ public:
       std::function<void(const std::vector<std::string> &names)> callback)
       -> void;
 
-  template <typename T> auto auto_bind_parameter(T &params) -> void {
-    auto_bind_parameter_impl(params, "");
+  template <typename T>
+  auto auto_bind_parameter(T &params, std::string_view prefix = "") -> void {
+    auto_bind_parameter_impl(params, prefix);
   }
 
 private:
