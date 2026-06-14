@@ -323,7 +323,7 @@ struct Parameters {
 
 ### 参数绑定与回调必须在构造函数
 
-`auto_bind_parameter()` 和 `set_callback()` 必须在节点构造函数内调用，否则参数无法正确映射到 Lua 配置。
+`auto_bind_parameter()` 和 `set_callback()` 必须在节点构造函数内并且和构造函数同一线程调用，否则为UB。
 
 `set_callback` 的作用是监听 Lua 配置文件热更新：框架会检测文件变化并更新内部 `config_map_`，但**不会自动同步到结构体字段**，需要在 callback 中手动调用 `apply_parameter_value()` 来应用变更：
 

@@ -83,14 +83,14 @@ auto FoxgloveServer::start() -> void {
 
 auto FoxgloveServer::setup_parameters(
     std::function<ParameterValue(const std::string &name)>
-        get_parameter_callback,
+        parameter_get_callback,
     std::function<void(const std::string &name, ParameterValue)>
-        set_parameter_callback,
+        parameter_set_callback,
     std::function<void(const std::vector<std::string> &name)>
         parameter_update_callback,
     std::vector<std::string> parameter_names) -> void {
-  parameter_get_callback_ = get_parameter_callback;
-  parameter_set_callback_ = set_parameter_callback;
+  parameter_get_callback_ = parameter_get_callback;
+  parameter_set_callback_ = parameter_set_callback;
   parameter_update_callback_ = parameter_update_callback;
   parameter_names_ = parameter_names;
 }

@@ -31,10 +31,13 @@ public:
   auto parameter_update_callback()
       -> std::function<void(const std::vector<std::string> &names)>;
   auto stop_listeners() -> void;
+  auto listen_parameter(const std::string &prefix, const std::string &names)
+      -> void;
 
 private:
   mutable std::shared_mutex config_map_mutex_;
   std::unordered_map<std::string, ParameterValue> config_map_;
+  std::unordered_map<std::string, std::string> parameter_listeners_;
   std::vector<std::jthread> update_listener_threads_;
   std::unordered_map<std::string,
                      std::atomic<std::shared_ptr<std::vector<std::string>>>>

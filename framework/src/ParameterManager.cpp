@@ -77,11 +77,12 @@ auto ParameterManager::parameter_update_callback()
     std::unordered_map<std::string, std::shared_ptr<std::vector<std::string>>>
         updated_names;
     for (const auto &name : names) {
-      auto pos = name.find('.');
-      if (pos == std::string::npos)
+      auto it = parameter_listeners_.find(name);
+      if (it == parameter_listeners_.end())
         continue;
-      std::string prefix = name.substr(0, pos);
-      std::string suffix = name.substr(pos + 1);
+      auto prefix = it->second;
+      auto full_name = it->first;
+      auto suffix = full_name.substr(prefix.size() + 1);
       auto &names_ptr = updated_names[prefix];
       if (!names_ptr) {
         names_ptr = std::make_shared<std::vector<std::string>>();
@@ -111,4 +112,13 @@ auto ParameterManager::stop_listeners() -> void {
   }
 }
 
+auto ParameterManager::listen_parameter(const std::string &prefix,
+                                        const std::string &names) -> void {
+  auto full_name = prefix + "." + names;
+  if (parameter_listeners_.contains(full_name)) {
+    throw std::runtime_error("Listener for parameter already exists: " +
+                             full_name);
+  }
+  parameter_listeners_[full_name] = prefix;
+}
 } // namespace framework
