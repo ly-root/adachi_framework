@@ -14,6 +14,8 @@ ParameterHandle::ParameterHandle(const std::string &prefix) : prefix_(prefix) {}
 auto ParameterHandle::bind_parameter(const std::string &name,
                                      ParameterReference param) -> void {
   parameter_bind_.emplace(name, param);
+  framework::Framework::instance().parameter_manager().listen_parameter(prefix_,
+                                                                        name);
   apply_parameter_value(name);
 }
 
